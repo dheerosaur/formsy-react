@@ -3,7 +3,8 @@ module.exports = {
     return {
       _value: this.props.value ? this.props.value : '',
       _isValid: true,
-      _isPristine: true
+      _isPristine: true,
+      _isDisabled: false
     };
   },
   componentWillMount: function () {
@@ -91,7 +92,7 @@ module.exports = {
   },
   resetValue: function () {
     this.setState({
-      _value: '',
+      _value: value,
       _isPristine: true
     }, function () {
       this.props._validate(this);
@@ -123,5 +124,11 @@ module.exports = {
   },
   showError: function () {
     return !this.showRequired() && !this.state._isValid;
+  },
+  isDisabled: function () {
+    return this.state._isDisabled;
+  },
+  makeDisabled: function () {
+    this.setState({_isDisabled: true});
   }
 };

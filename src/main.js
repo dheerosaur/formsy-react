@@ -121,10 +121,18 @@ Formsy.Form = React.createClass({
   },
 
   // Reset each key in the model to the original / initial value
-  resetModel: function () {
+  resetModel: function (data, disabledFields) {
+
     Object.keys(this.inputs).forEach(function (name) {
-      this.inputs[name].resetValue();
+      var input = this.inputs[name];
+
+      if (data && data[name])
+        input.updateValue(data[name]);
+
+      if (disabledFields.indexOf(name) !== -1)
+        input.makeDisabled();
     }.bind(this));
+
     this.validateForm();
   },
 
